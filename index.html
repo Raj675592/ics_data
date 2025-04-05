@@ -1,0 +1,44 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback Form</title>
+  <link rel="stylesheet" href="des.css">
+</head>
+<body>
+  <h2>Feedback Form</h2>
+  <form id="feedbackForm">
+    <input type="text" placeholder="Name" id="name" required><br>
+    <input type="email" placeholder="Email" id="email" required><br>
+    <input type="text" placeholder="Roll Number" id="rollno" required><br>
+    <textarea placeholder="Your Feedback" id="feedback" required></textarea><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const rollno = document.getElementById('rollno').value;
+      const feedback = document.getElementById('feedback').value;
+
+      try {
+        const response = await fetch('/api/submit-feedback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, rollno, feedback })
+        });
+
+        const result = await response.json();
+        alert(result.message || 'Feedback sent!');
+      } catch (err) {
+        console.error('❌ Error sending feedback:', err);
+        alert('⚠️ Error submitting feedback');
+      }
+    });
+  </script>
+</body>
+</html>
