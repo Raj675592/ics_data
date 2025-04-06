@@ -2,10 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('./db'); // Import the database connection from db.js
 const cors = require('cors');
-app.use(cors());
 
 const app = express();
-const PORT = 5500;
+const PORT = 5501;
+
+// Enable CORS
+app.use(cors());
 
 // Middleware to parse JSON data
 app.use(bodyParser.json());
